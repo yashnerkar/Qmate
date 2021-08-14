@@ -1,0 +1,58 @@
+.main-div{
+
+    height: 80vh;
+    width: 100vw;
+    color: white;
+    font-weight:bold;
+    font-family: "system-ui";
+}
+
+#errorText{
+    margin-top:2rem !important;
+    font-size: 20px;
+}
+
+.inner-container{                      
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.joinForm{
+    display: flex;
+    width: 50rem;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputDiv{
+    display: flex;
+    width: 25rem;
+    align-items : center;
+    justify-content: space-between;
+}
+
+.input-ele{
+    display: inline;
+    height: fit-content;
+    margin: 0rem !important;
+    padding :0rem !important;
+}
+
+.form-ele{
+    margin-bottom: 1rem !important;
+    margin-top: 1rem !important;
+}
+.inputEle{
+    width: 17rem;
+}
+.btn-success{
+    margin-top: 1rem;
+    padding: 0.5rem !important;
+    font-weight: bold !important;
+    border-radius: 10px !important;
+}

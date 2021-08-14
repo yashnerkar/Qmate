@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/joinpage.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <title>Join Page</title>
+</head>
+<%- include("partials/header")  %> 
+<body>
+    <div class="container text-center pd-5 d-flex flex-column" style="height: 80vh; display:flex; justify-content:center; align-items: center">
+        <form class="align-middle my-auto" onsubmit="sendData(event)" id="joinForm">
+
+        </form>
+    </div>
+    
+
+    <script type="text/javascript">
+        const formData = JSON.parse('<%-JSON.stringify(formData)%>');
+        createForm();
+        function createForm() {
+            let n = formData.length;
+            let form = document.getElementById('joinForm');
+            for (let i = 0; i < n; ++i) {
+                let newDiv = document.createElement('div');
+                newDiv.innerHTML = '<h4 style="color:white; style="display: inline-block; !important ">Enter ' + formData[i] + '&nbsp;</h4><input style="display: inline-block !important; width: 15rem;" type="text" name=' + formData[i] + ' class="inpEle">';
+                newDiv.classList.add('inputDiv');
+                form.appendChild(newDiv);
+            }
+            let submitbtn = document.createElement('button');
+            submitbtn.setAttribute('type', 'submit');
+            submitbtn.setAttribute('name', 'joinForm');
+            submitbtn.classList.add('btn' , 'btn-warning')
+            submitbtn.style.marginTop = '1rem';
+            submitbtn.innerText = 'Submit';
+            form.appendChild(submitbtn);
+        }
+
+        function sendData(e) {
+            e.preventDefault();
+            let n = formData.length;
+            let responseObj = {};
+            
+            for (let i = 0; i < n; ++i) {
+                responseObj[formData[i]] = document.forms['joinForm'][formData[i]].value;
+            }
+            const classCode = JSON.parse('<%-JSON.stringify(classCode)%>');
+            const url = 'http://localhost:3000/registerStudent/' + classCode;
+            const params = {
+                method: 'POST',
+                body: JSON.stringify(responseObj),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json, text/plain, */*'
+                }
+            };
+            fetch(url, params).then(() => {
+                console.log('success');
+                location.href = '/'
+            }).catch(() => {
+                console.log('error');
+            })
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+.qsetwidth{
+    width:30%;
+}
+
+.navbar{
+    position : sticky !important;
+    top: 0px;
+    z-index : 2 !important;
+    background-color: #511281 !important;
+    display: flex;
+    /* background-color: yellow !important; */
+   
+}
+.nav-link{
+    color: white !important;
+    font-weight: bold;
+}
+
+.nav-ul{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hide{
+    visibility: hidden;
+}
+
+#errorText{
+    color: red;
+    font-weight: bold;
+}
+
+.activeCheckBox{
+    background-color:rgba(123, 255, 0, 0.61) !important;
+    color:black;
+    border:1px solid black
+}
+
+.selectOption{
+    border-radius: 100%;
+    height: 1rem;
+    width: 1rem;
+    background-color: white;
+}
+
+.activeQuestion{
+    background-color: rgba(251, 255, 0, 0.6) !important;
+}
+
+.questionList{
+    /* position: fixed; */
+    margin-top: 5rem;
+    z-index: 1;
+}
+
+.questions{
+    background-color: rgb(187, 187, 187, 0.5);
+    border-radius: 10px;
+
+    padding: 7px 20px 7px 20px;
+    margin:0.5rem 0.5rem;
+    color:white;
+    font-weight:bold;
+    font-style: Monaco;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.questionListHeading{
+    position: fixed; 
+    top: 3rem;
+    padding: 2.6rem 5rem 1rem 5.8rem;
+    background-color: #440a67;
+}
+
+.btn-danger{
+    border-radius: 10px;
+    font-weight: bold;
+    color: rgba(251, 255, 0, 0.863);
+    padding:6px 14px 6px 14px; 
+}
+
+
+.question-form-container
+{
+    position: fixed;
+    
+    margin-top: 3rem !important;
+    margin-left: 36rem;
+}
+
+.add-ques-container{
+    position: sticky;
+    bottom: 0px;
+    left: 0px;
+    margin: 0rem;
+    width:30rem;
+    padding: 0rem 1.5rem 2rem 4rem;
+    /* width: fit-content; */
+    background-color: #440a67;
+    
+    /* background-color: wheat; */
+}
+
+#limitWarning{
+    /* padding-top: 0.8rem; */
+}
+
+.blinking{
+    animation:blinkingText 0.5s infinite;
+    /* animation-iteration-count: infinite; */
+     }
+     @keyframes blinkingText{
+        0%{
+            opacity: 0.3;
+          }
+          25%{
+              opacity: 0.5;
+          }
+          50%{
+            opacity: 0.7;
+          }
+          75%{
+              opacity:0.9;
+          }
+          100%{
+            opacity: 1;
+          }
+     }
+
+#save-test-btn{
+    background-color: rgb(19, 202, 19);
+    color:black;
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+#set-time-btn{
+    margin-left: 1rem;
+}
+.modal-content{
+    background-color: rgb(255, 255, 255);
+    font-family:system-ui;
+    font-weight: 600;
+    
+}
+#exampleModalLabel{
+    font-family:system-ui;
+}
+
+
+.modal-header, .modal-body, .modal-footer{
+    background-color: #f8ceec;
+background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+border: none;
+}

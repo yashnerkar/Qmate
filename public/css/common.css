@@ -1,0 +1,29 @@
+html{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Oswald', sans-serif;
+    background-color: #440a67 !important;
+    color: black !important;
+    
+}
+
+.transparent{
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.transparent-white{
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.nav-item{
+    color: white
+}
+
+.modal-header, .modal-body, .modal-footer{
+    background-color: #8989bb;
+    background-image: linear-gradient(315deg, #8989bb 0%, #a5a4cb 74%);
+    border: none;
+}

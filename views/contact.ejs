@@ -1,0 +1,25 @@
+<%- include("partials/header"); %>
+<link rel="stylesheet" href="css\common.css">
+<link rel="stylesheet" href="css\contact.css">
+<div class="container my-5 pd-4">
+    <form action="/contact">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Submit Your Query</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+          </div>
+        <button type="submit" class="btn btn-success">Send Query</button>
+    </form>
+</div>
+
+
+
+<%- include("partials/footer"); %>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/joinExam.css">
+    <title>Join Exam</title>
+</head>
+<%- include('partials/header.ejs') %>
+<body>
+    <div class="container main-div">
+        <div class="container inner-container">
+            <form onsubmit="sendData(event)" id="joinForm">
+                <div class="inputDiv">
+                    <p class="form-ele text-center">Test Name</p>
+                <input type="text" class="form-ele inputEle" name="testName" id="">
+                </div>
+            </form>
+            <p id="errorText"></p>
+        
+            <div id="timeStatus"></div>
+        </div>
+    </div>
+    
+
+
+<script type="text/javascript">
+   const formData = JSON.parse('<%-JSON.stringify(formData)%>');
+    createForm();
+    function createForm(){
+        let n = formData.length;
+        let form = document.getElementById('joinForm');
+        for(let i = 0 ; i<n ; ++i){
+            let newDiv = document.createElement('div');
+            newDiv.innerHTML = '<p class="form-ele">Enter '+formData[i]+' : </p><input type="text" class="form-ele inputEle" name='+formData[i]+'>';
+            newDiv.classList.add('inputDiv');
+            form.appendChild(newDiv);
+        }
+        let submitbtn = document.createElement('button');
+        submitbtn.classList.add('btn', 'btn-success', 'inputDiv')
+        submitbtn.setAttribute('type','submit');
+        submitbtn.setAttribute('name','joinForm');
+        submitbtn.innerText = 'Submit'
+        form.appendChild(submitbtn);
+    }
+
+    function sendData(e){
+        e.preventDefault();
+        let n = formData.length;
+        let responseObj = {};
+        var testName = document.forms['joinForm']['testName'].value;
+        responseObj['testName'] = testName;
+        for(let i = 0 ; i<n; ++i){
+            responseObj[formData[i]] = document.forms['joinForm'][formData[i]].value;
+        }
+        const classCode = JSON.parse('<%-JSON.stringify(classCode)%>');
+        const url = '/checkStudentDetails/'+classCode;   
+        const params = {
+            method : 'POST',
+            body : JSON.stringify(responseObj),
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, text/plain, */*'
+            }
+        };
+        
+        fetch(url ,params).then((resp)=>{
+            return resp.json();
+        }).then((data)=>{
+            if(data.foundTest == false){
+                document.getElementById('errorText').innerText = 'Test Name not found';
+            }else if(data.attempted == true){
+                document.getElementById('errorText').innerText = 'You have already attempted the test';
+            }else if(data.present){
+                localStorage.setItem('time' , JSON.stringify(data.time));
+                localStorage.setItem('studentID' , JSON.stringify(data.studentID));
+                localStorage.setItem('testName' , JSON.stringify(testName));
+            }else{
+                document.getElementById('errorText').innerText = 'Incorrect details';
+            }
+        }).catch((err)=>{
+           console.log(err)
+        })
+    }
+    let showTime = setInterval(() => {
+        checkTime();
+    }, 1000);
+    function checkTime(){
+
+        let time = JSON.parse(localStorage.getItem('time'));
+        if(time == null)return;
+        
+        let d = new Date();
+        let curTimeSec = Date.parse(d);
+        
+        let startTimeStr = time.startDate + 'T' + time.startTime;
+        let startTimeSec = Date.parse(startTimeStr);
+        let endTimeStr = time.endDate + 'T' + time.endTime;
+        let endTimeSec = Date.parse(endTimeStr);
+        let timeStatus = document.getElementById('timeStatus');
+
+        if(curTimeSec >= endTimeSec){
+            timeStatus.innerText = 'Test has ended';
+        }else if(curTimeSec < startTimeSec){
+            let remainingTimeSec = (startTimeSec - curTimeSec)/1000;
+            remainingTime = Math.floor(remainingTimeSec/3600)+ ' hours : ' + Math.floor((remainingTimeSec/60))%60 + ' min : '+ Math.floor(remainingTimeSec%60) + ' sec';
+            timeStatus.innerText = 'Time Left : ' + remainingTime;
+        }else{
+            clearInterval(showTime);
+            let classCode=JSON.parse('<%-JSON.stringify(classCode)%>');
+            let testName = JSON.parse(localStorage.getItem('testName'));
+            if(testName == null){
+                timeStatus.innerText = 'test name not defined';
+                return;
+            }
+            location.href = '/exam/'+classCode+'/'+testName;
+        }
+    }
+</script>
+
+</body>
+</html>

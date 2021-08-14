@@ -1,0 +1,115 @@
+.savedQuestion{
+    background-color : #31f52a !important;
+}
+
+.selectOption{
+    height: 1.4rem;
+    width: 1.4rem;
+    background-color: white;
+    border-radius: 100%;
+    border: 1px solid black;
+}
+
+.activeQuestion{
+    background-color: grey!important;
+}
+
+.navbtn:hover{
+    background-color:lightblue !important; 
+    cursor: pointer !important;   
+}
+
+.activeOption{
+    background-color: yellow !important;
+}
+.reviewQuestion{
+    background-color:orange !important;
+}
+
+
+.questionDiv{
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    padding-left: 1.5rem;  
+}
+
+.rightDiv{
+    height: 90vh;
+}
+
+.optionDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.options{
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    
+}
+
+.option-content{
+    display: inline-block;
+}
+
+.selectOption{
+    margin:0rem !important;
+    padding: 0rem !important;
+}
+
+.optionValue{
+    margin-left: 1rem;
+}
+
+.navigationBtns{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.navbtn{
+    height:3rem !important;
+    width:3rem !important;
+    border-radius: 0.1rem;
+    margin-left: 1.2rem;
+    margin-bottom: 0.7rem;
+    background-color: white;
+    outline-style: none;
+}
+
+.navbtn:focus{
+    outline:none;
+}
+
+#resetbtn{
+    margin-right:1rem;
+    margin-left:40rem;
+}
+
+#savebtn, #review{
+    margin-right:1rem;
+}
+
+.reviewQ{
+  background-color: orange !important;
+}
+
+.btnDiv{
+    position: fixed;
+    bottom : 0rem;
+    margin-bottom: 4rem;
+}
+/* #remainingTime{
+
+} */
+
+#submitbtn{
+    position: fixed;
+    bottom: 0rem;
+    margin-bottom: 4rem;
+   margin-left: -2.5rem !important;
+}
+

@@ -1,0 +1,226 @@
+<%- include("partials/header"); %>
+  <link rel="stylesheet" href="css\homepage.css">
+  <link rel="stylesheet" href="css\common.css">
+  <!-- Navbar -->
+  
+ 
+
+  <div class="jumbotron jumbotron-fluid">
+    <img class="float-right mr-5" src="images\quiz.svg" alt="img" width="300px" height="300px">
+    <div class="container">
+      <h1 class="display-4">Welcome to Qmate</h1>
+      <p class="lead">
+        <a href="/" style="color: white; text-decoration: none;">Qmate.com</a> is an online tool for creating knowledge, fun quizzes and questionnaires. It is
+          designed for lovers of quizzes and competitions who want to have fun and learn something new. Thanks to the
+          advanced features, you can insert quizzes on your own websites and enrich the content of your blog with
+          interesting content.</p>
+      </p>
+
+      <button class="btn btn-primary mr-4" onclick="goToHostPage()">Create Test</button>
+      <button class="btn btn-primary mr-4" data-toggle='modal' data-target='#joinClassModal'>Join Class</button>
+      <button class="btn btn-primary" data-toggle='modal' data-target='#joinExamModal'>Join Test</button>
+    </div>
+  </div>
+
+
+  <div class="container text-center">
+    <h3 class="ml-5" style="font-weight: bold; color: white;">OUR FEATURES</h3>
+  </div>
+  <div class="container-fluid d-flex justify-content-center part-2 py-5">
+    <div class="container mx-3 px-5">
+      <img src="images\exam.svg" alt="exam" height="300px" width="300px" style="border-radius: 50%;">
+      <p>Teachers can conduct Online Examination through Qmate Online. It is a very great tool for education during this
+        pandemic</p>
+    </div>
+    <div class="container mx-3 px-5">
+      <img src="images\teacher.svg" alt="teacher" height="300px" width="300px" style="border-radius: 50%;">
+      <p>This tool can make the process of teaching and evaluating the students verey easy and simple.</p>
+    </div>
+    <div class="container mx-3 px-5">
+      <img src="images\5quiz.svg" alt="teacher" height="300px" width="300px" style="border-radius: 50%;">
+      <p>Each Teacher can create their own classroom and they get to create 5 quizzes per account which can be increased
+        after selecting a particular premium plan.</p>
+    </div>
+  </div>
+
+
+  <h3 style="text-align: center; font-weight: bold; color: white;">GET IN TOUCH</h3>
+  <p class="text-center mt-5" style="color: white;">Reach Us through the links below</p>
+  <div class="conatiner-fluid d-flex justify-content-center" style="color: white; font-size:20px;font-family:system-ui;">
+    <div class="container mx-5 px-3 contact-cards">
+      <img class="mx-auto d-block" src="images\contact\location.svg" alt="teacher" height="300px" width="300px"
+        style="border-radius: 50%;">
+      <p class="text-center">Qmate Technologies Building,<br>Near Bhindi Bazar, Badlapur road, Ambernath(W)<br>
+      Satara<br>
+    </div>
+    <div class="container mx-5 px-3 contact-cards">
+      <img class="mx-auto d-block" src="images\contact\phone.svg" alt="teacher" height="300px" width="300px"
+        style="border-radius: 50%;">
+      <p class="text-center">+91 8881212</p>
+    </div>
+    <div class="container mx-5 px-3 contact-cards">
+      <img class="mx-auto d-block" src="images\contact\email.svg" alt="teacher" height="300px" width="300px"
+        style="border-radius: 50%;">
+      <p class="text-center">qmatesolution@gmail.com</p>
+      <p class="text-center">help@qmatesolution.com</p>
+    </div>
+  </div>
+
+  <!-- modal 1 -->
+  <div class="modal fade" id="joinClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Join Class</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" method="POST">
+          <div class="alert hide alert-danger alert-dismissible fade show" role="alert" id="join-code-alert">
+            <strong>Incorrect Class Code! </strong>Check your classCode
+          </div>
+          <form onsubmit="joinClass(event)" id="joinClassForm">
+            <span>Enter Class Code</span>
+            <input type="text" name="classCode" class="form-control">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="joinClassForm">Join Class</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="joinExamModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Join Test</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert hide alert-danger alert-dismissible fade show" role="alert" id="exam-code-alert">
+            <strong>Incorrect Class Code! </strong>Check your classCode
+          </div>
+          <form onsubmit="gotoExamPage(event)" id="joinExamForm">
+            <span>Enter Class Code</span>
+            <input type="text" name='classCode' class='form-control'>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="joinExamForm">Join Test</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+  <!-- <form action="/teacher/signup" method="post">
+  <h3>teacher signup</h3>
+  <input type="email" name="username" id="" placeholder="Enter Email" />
+  <input type="password" name="password" id="" placeholder="Enter password" />
+  <input type="submit" value="Submit" />
+</form>
+
+
+<form action="/teacher/login" method="post">
+  <h3>teacher login</h3>
+  <input type="email" name="username" id="" placeholder="Enter Email" />
+ 
+  <input type="password" name="password" id="" placeholder="Enter password" />
+ 
+  <input type="submit" value="Submit" />
+</form>
+
+<br>
+<p><%= error %></p>
+<form id="joinClass" action="/joinClass" method="post">
+<div>
+  <p>Join Class : </p>
+<input  type="text" id="classCode" name="classCode" placeholder="Enter the class code">
+<button type="submit" id="submitCode">Join</button>
+</form>
+
+<form action="/checkClassCode" method="post">
+  <p>Enter classCode</p>
+  <input type="text" name="classCode" id="">
+  <input type="submit" name="" id="" value="Submit">
+</form> -->
+
+  <script type="text/javascript">
+
+    function goToHostPage() {
+      location.href = '/teacher/login';
+    }
+    function joinClass(event) {
+      event.preventDefault();
+      const classCode = document.forms['joinClassForm']['classCode'].value;
+      const url = '/checkClassCode';
+      const params = {
+        method: 'POST',
+        body: JSON.stringify({ classCode: classCode }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      fetch(url, params).then((resp) => {
+        return resp.json();
+      }).then((data) => {
+        if (data.classroomExists) {
+          location.href = '/joinPage/' + classCode;
+        } else {
+          displayErrorText('join-code-alert');
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+    function gotoExamPage(event) {
+      event.preventDefault();
+      const classCode = document.forms['joinExamForm']['classCode'].value;
+      const url = '/checkClassCode';
+      const params = {
+        method: 'POST',
+        body: JSON.stringify({ classCode: classCode }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+
+      fetch(url , params).then((resp)=>{
+        return resp.json();
+      }).then((data)=>{
+        if(data.classroomExists){
+          location.href = '/joinExam/'+classCode;
+        }else{
+          displayErrorText('exam-code-alert');
+        }
+      })
+
+    }
+
+    function displayErrorText(s){
+      document.getElementById(s).classList.remove('hide');
+      setTimeout(() => {
+        document.getElementById(s).classList.add('hide');
+      }, 4000);
+    }
+
+  </script>
+  <%- include("partials/footer"); %>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Qmate Teacher Sign Up</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script
+		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- Custom Theme files -->
+	<link rel="stylesheet" href="/css/teachersignup.css">
+	<link rel="stylesheet" href="/css/common.css">
+	<link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+	<!-- //web font -->
+</head>
+
+<body>
+	<!-- main -->
+	<div class="main-w3layouts wrapper">
+		<h1>Teacher Sign Up</h1>
+		<div class="main-agileinfo">
+			<div class="agileits-top">
+				<form action="/teacher/signup" method="post">
+					<input class="text email" type="email" name="username" placeholder="Email" required="">
+					<input class="text" type="password" name="password" placeholder="Password" required="">
+					<p class="wrong-password">
+						<%= wrongPasswordError %>
+					</p>
+					<input type="submit" value="SIGNUP">
+				</form>
+				<p class="signup-error">
+					<%= signupError %>
+				</p>
+
+				<p>Already have an Account? <a href="/teacher/login"> Login Now!</a></p>
+			</div>
+		</div>
+		<ul class="colorlib-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</body>
+
+</html>

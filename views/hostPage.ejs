@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/hostPage.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <title>Host Page</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/"><img src="/images/logo2.svg" alt="logo" height="40px" width="80px"></a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav nav-ul">
+                <li class="nav-item mr-3 align">
+                    <a style="text-decoration: none; color: white; font-weight: bold;" class="mx-3" href="/">Home</a>
+                </li>
+                <li class="nav-item mr-3 align">
+                    <a style="text-decoration: none; color: white; font-weight: bold;" class="mx-3"
+                        href="/about">About</a>
+                </li>
+                <li class="nav-item mr-3 align">
+                    <a style="text-decoration: none; color: white; font-weight: bold;" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item mr-3 align logout">
+                    <a style="text-decoration: none; color: white; font-weight: bold;" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </nav>
+
+
+
+
+
+
+    <div class="modal fade" id="registeredStudentsModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Registered Students</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body " id="registeredStudentsModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="deleteRegisteredStudent()"
+                        data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="createFormModal" tabindex="-1" role="dialog" aria-labelledby="createFormModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createFormModalTitle">
+                        Enrollment Form
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <%if(formData.length==0) {%>
+                        <form action="/createForm/<%=class_code%>" method="post" id="createForm">
+                            <ul id="fieldList"></ul>
+                        </form>
+                        <button class="btn btn-success" onclick="addField()">Add field</button>
+                        <%} else {%>
+                            <form action="/createNewForm/<%=class_code%>" method="GET" id="createNewForm">
+                                <ul id="formDataList"></ul>
+                            </form>
+                            <%}%>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitFormbtn" form="createForm">
+                        Save form
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="color: #e6dce3;">
+        <div class="row">
+            <div class="col-3 quizcontainer">
+                <div id="classroomCodediv" style="font-weight: bold; font-size: medium;">
+                    <h5 class="text-center mt-3" style="font-weight: bold;">YOUR QUIZZES</h5>
+                </div>
+                <div>
+                    <ul id="testList"></ul>
+
+                    <button type="button" id="createNewTestbtn" class="btn btn-success mx-auto text-center" data-toggle="modal"
+                        data-target="#testNameModal" style="margin: auto;">
+                        ADD TEST
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="testNameModal" tabindex="-1" role="dialog"
+                        aria-labelledby="testNameModalTitle" aria-hidden="true" style="color: black;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title " id="testNameModalTitle">
+                                        Add test name.
+                                    </h5>
+                                    <p>Test name should be unique.</p>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/createNewTest/<%=class_code%>" method="post" id="newTestNameForm">
+                                        <input type="text" name="testName" id="" placeholder="Enter Test Name" />
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" form="newTestNameForm">
+                                        Create Test
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="container center d-flex justify-content-between">
+                    <div class="container createform" style="margin-left: 7rem !important;">
+                        <div class="card formcard" style="width: 18rem;">
+                            <img src="/images/createform.svg" class="card-img-top" alt="img">
+                            <div class="card-body">
+                              <h5 class="card-title text-center" style="font-weight: bold;">Create Form</h5>
+                              <p class="card-text text-center" style="color: red; font-weight: bold;">You cannot have spaces in Form Inputs</p>
+                              <button class="btn btn-warning align-center" data-toggle="modal" data-target="#createFormModal" style="margin-left: 4rem !important;">Create
+                                Form </button>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="container createform">
+                        <div class="card formcard" style="width: 18rem;">
+                            <img src="/images/regstud.svg" class="card-img-top" alt="img">
+                            <div class="card-body">
+                              <h5 class="card-title text-center" style="font-weight: bold;">Registered Students</h5>
+                              <p class="card-text text-center">You can view the registered Students Here</p>
+                              <button class="btn btn-warning" data-toggle="modal" data-target="#registeredStudentsModal"
+                            onclick="displayRegisteredStudents()" style="margin-left: 1rem !important;">Show Registered Students</button>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <!-- <div class="container">
+                    <div class="container my-3">
+                        <img class="float-right" src="/images/exam.svg" alt="image" height="200px" width="200px">
+                        <div class="container content">
+                            <button class="btn btn-warning" data-toggle="modal" data-target="#createFormModal">Create
+                                Form </button>
+                        </div>
+                    </div>
+                    <div class="container my-3">
+                        <img class="float-left" src="/images/exam.svg" alt="image" height="200px" width="200px">
+                        <div class="container content">
+                            <!- <button class="btn btn-warning" data-toggle="modal" data-target="#pendingStudentsModal" -->
+                            <!-- onclick="showPendingStudents()">Pending Students</button> -->
+
+                        <!-- </div>
+                    </div>
+                    <div class="container my-3">
+                        <img class="float-right" src="/images/exam.svg" alt="image" height="200px" width="200px">
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#registeredStudentsModal"
+                            onclick="displayRegisteredStudents()">Show Registered Students</button>
+                        <div class="container content">
+                            <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet, ipsa! Laborum ut
+                                ipsa laboriosam obcaecati alias, id veniam fugiat modi exercitationem velit accusamus
+                                fugit sequi. Odio eos iure obcaecati tenetur id corrupti ducimus voluptates assumenda
+                                consequuntur suscipit aliquid illo dolorem culpa itaque repudiandae nesciunt in, nulla,
+                                incidunt error saepe! Ex, ab! Nobis quod maxime similique ab, sunt officiis et eum.
+                                Impedit dolorum possimus accusantium, repellendus repudiandae dicta quasi totam
+                                natus!</span>
+                        </div>
+                    </div>
+                </div> --> 
+            </div>
+            <div class="col-4 text-center">
+                <div>
+                    <div class="float-right pendingstudentcontainer">
+                        <img class="mr-0 mt-2" src="\images\avatar.png" height="80px" width="80px"
+                            style="border-radius: 50%;">
+                        <br>
+                        <span class="mt-2" style="font-weight: bold; font-size: medium;">
+                            Code: <%=class_code%>
+                        </span>
+                        <h4 class="text-center mt-3" style="font-weight: bold;">Pending Students</h4>
+                        <div id="pendingStudent" class="container">
+                            <ul id="pendingStudentList">
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        let stringformData = '<%-JSON.stringify(formData)%>';
+        let formData = JSON.parse(stringformData);
+        if (formData.length == 0) {
+            addField();
+        } else {
+            generateListItems();
+        }
+
+        let stringTestNames = '<%-JSON.stringify(testNames)%>';
+        let testNames = JSON.parse(stringTestNames);
+        if (testNames.length == 5) {
+            let newTestbtn = document.getElementById("createNewTestbtn");
+            newTestbtn.classList.add("hiddenElement");
+        }
+
+        function addField() {
+            let newEle = document.createElement("li");
+            newEle.classList.add('form-list-li')
+            newEle.innerHTML =
+                '<input class="form-control" type="text" class="inputListItem" name="inputName" id="newItem"/>';
+            let ulist = document.getElementById("fieldList");
+            ulist.appendChild(newEle);
+        }
+
+        function generateListItems() {
+            let n = formData.length;
+            for (let i = 0; i < n; ++i) {
+                let newLiEle = document.createElement("p");
+                newLiEle.innerHTML =
+                    '<p class="existingListItem">' + formData[i] + "</p>";
+                let ulist = document.getElementById("formDataList");
+                ulist.appendChild(newLiEle);
+            }
+            let savebtn = document.getElementById("submitFormbtn");
+            savebtn.innerText = "Edit form";
+            savebtn.setAttribute("form", "createNewForm");
+        }
+
+        function showTestNames() {
+            let n = testNames.length;
+            for (let i = 0; i < n; ++i) {
+                let newEle = document.createElement("li");
+                newEle.setAttribute("id", testNames[i]);
+                newEle.classList.add("testList");
+                newEle.innerHTML =
+                    '<span style=" font-weight: bold; font-size: 20px;" class="testNamePara" >' +
+                    testNames[i] +
+                    '</span> <div  style="display:inline-block;"><button class="mx-2 my-2 editbtn btn btn-primary" onclick="editTest()">Edit</button><button class="btn btn-danger mx-2 deletebtn" onclick="deleteTest()">Delete</button><button class="btn btn-warning mx-2" onclick="showResult(event)" name="' + testNames[i] + '">result</button></div>';
+                // '</span><img src="\\images\\icons\\edit.svg" class="editbtn" onclick="editTest()"><img src="\\images\\icons\\buttons.svg" onclick="deleteTest()" class="deletebtn"><button onclick="showResult(event)" name="'+testNames[i]+'">result</button>
+
+                let ulist = document.getElementById("testList");
+                ulist.appendChild(newEle);
+            }
+        }
+        showTestNames();
+        function deleteTest() {
+            toggleActive().then(deleteTestCB);
+        }
+
+        function showResult(event) {
+            const testName = event.target.name;
+            const classCode = JSON.parse('<%-JSON.stringify(class_code)%>');
+            const url = '/resultPage/' + classCode + '/' + testName;
+            location.href = url;
+        }
+
+        function toggleActive() {
+            return new Promise((res, rej) => {
+                let testList = document.querySelectorAll(".testList");
+                let n = testList.length;
+                for (let i = 0; i < n; i++) {
+                    testList[i].onclick = function () {
+                        for (let j = 0; j < n; ++j) {
+                            if (testList[j].classList.contains("activeTest")) {
+                                testList[j].classList.remove("activeTest");
+                            }
+                        }
+                        testList[i].classList.add("activeTest");
+                        res();
+                    };
+                }
+            });
+        }
+
+        function deleteTestCB() {
+            const classCodeString = '<%-JSON.stringify(class_code)%>';
+            const classCode = JSON.parse(classCodeString);
+            let testName = document.querySelector(".activeTest").id;
+            let resp = confirm("Do you want to Delete test" + testName);
+            if (!resp) return;
+
+            const url =
+                "http://localhost:3000/" + classCode + "/deleteTest/" + testName;
+            fetch(url)
+                .then((resp) => {
+                    location.reload();
+                })
+                .catch(() => {
+                    alert("Something went wrong");
+                });
+        }
+
+        function editTest() {
+            toggleActive()
+                .then(() => {
+                    const classCodeString = '<%-JSON.stringify(class_code)%>';
+                    const classCode = JSON.parse(classCodeString);
+                    let testName = document.querySelector(".activeTest").id;
+
+                    const url =
+                        "http://localhost:3000/createTest/" +
+                        classCode +
+                        "/" +
+                        testName +
+                        "/edit";
+
+                    location.href = url;
+                })
+                .catch(() => {
+                    console.log("test not selected");
+                });
+        }
+
+        showPendingStudents();
+        function showPendingStudents() {
+            deleteStudentList().then(() => {
+                let studentList = JSON.parse('<%-JSON.stringify(pendingStudents)%>')
+                let pendingList = document.getElementById('pendingStudentList');
+
+                let n = studentList.length;
+
+                if (n == 0) return;
+                let params = Object.keys(studentList[0]);
+                let len = params.length;
+
+                for (let i = 0; i < Math.min(n, 3); ++i) {
+                    let newDiv = document.createElement('div');
+                    newDiv.classList.add("pendingStudentDiv");
+                    newDiv.setAttribute('id', i);
+
+                    for (let j = 0; j < len; j++) {
+                        let divInfo = document.createElement('p');
+                        divInfo.innerText = params[j] + ' : ' + studentList[i][params[j]];
+                        newDiv.appendChild(divInfo);
+                    }
+                    let btnDiv = document.createElement('div');
+                    btnDiv.innerHTML = '<button class="btn btn-primary mx-3 pd-3" onclick="removeStudent()">Reject</button><button class="btn btn-danger mx-3 pd-3" onclick="acceptStudents()">Accept</button>'
+                    newDiv.appendChild(btnDiv);
+                    pendingList.appendChild(newDiv);
+                }
+
+                if (n > 3) {
+                    let more = document.createElement('div');
+                    more.innerText = '...';
+                    more.style.color = 'white';
+                    more.style.fontWeight = 'bold';
+                    pendingList.appendChild(more);
+                }
+            })
+        }
+
+        function deleteStudentList() {
+            return new Promise((res, rej) => {
+                while (document.querySelector('.pendingStudentDiv') != null) {
+                    document.querySelector('.pendingStudentDiv').remove();
+                }
+                res();
+            })
+
+        }
+        function removeStudent() {
+            toggleActiveStudents().then(() => {
+                let idx = document.querySelector(".activeStudent").id;
+                let classCode = JSON.parse('<%-JSON.stringify(class_code)%>');
+                let url = 'http://localhost:3000/rejectStudent/' + classCode
+
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify({ idx: idx }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((resp) => {
+                    location.reload();
+                }).catch((err) => {
+                    console.log(err)
+                });
+
+            }).catch(() => {
+                console.log("toggle error");
+            });
+        }
+        function toggleActiveStudents() {
+            return new Promise((res, rej) => {
+                let student = document.querySelectorAll(".pendingStudentDiv");
+                let n = student.length;
+
+
+                for (let i = 0; i < n; ++i) {
+                    student[i].onclick = function () {
+                        for (let j = 0; j < n; ++j) {
+                            if (student[j].classList.contains("activeStudent")) {
+                                student[j].classList.remove("activeStudent");
+                            }
+                        }
+                        student[i].classList.add("activeStudent");
+                        res();
+                    }
+                }
+            })
+        }
+        function acceptStudents() {
+            toggleActiveStudents().then(() => {
+                let idx = document.querySelector(".activeStudent").id;
+                let classCode = JSON.parse('<%-JSON.stringify(class_code)%>');
+                let url = 'http://localhost:3000/acceptStudent/' + classCode;
+                const params = {
+                    method: "POST",
+                    body: JSON.stringify({ idx: idx }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                } 
+                fetch(url, params).then((resp) => {
+                    location.reload();
+                }).catch((err) => {
+                    console.log(err);
+                })
+            })
+        }
+
+        function displayRegisteredStudents() {
+            deleteExistingList().then(() => {
+                let studentList = JSON.parse('<%-JSON.stringify(registeredStudents)%>');
+                let n = studentList.length;
+                if (n == 0) return;
+                let params = Object.keys(studentList[0]);
+                let len = params.length;
+                let modalBody = document.getElementById('registeredStudentsModalBody');
+                for (let i = 0; i < n; ++i) {
+                    let studentDiv = document.createElement("div");
+                    studentDiv.classList.add('registeredStudentDetailsContainer');
+                    let detaildiv = document.createElement("div");
+                    for (let j = 0; j < len; j++) {
+                        let detail = document.createElement('div');
+                        detail.innerText = params[j] + ' : ' + studentList[i][params[j]];
+                        detaildiv.appendChild(detail);
+                    }
+                    let btnDiv = document.createElement("div");
+                    btnDiv.innerHTML = '<button class="btn btn-danger" name="' + i + '" onclick="addtoDeleteList(event)">Delete</button>';
+                    studentDiv.appendChild(detaildiv);
+                    studentDiv.appendChild(btnDiv);
+                    modalBody.appendChild(studentDiv);
+                }
+            }).catch(() => {
+                console.log('error while deleting students');
+            })
+        }
+
+        function deleteExistingList() {
+            return new Promise((res, rej) => {
+                let studentList = document.getElementsByClassName('registeredStudentDetailsContainer');
+                let n = studentList.length;
+                for (let i = 0; i < n; ++i) {
+                    studentList[i].remove();
+                }
+                res();
+            });
+
+        }
+
+        const regDeleteList = [];
+        function addtoDeleteList(event) {
+            if (event.target.parentNode.parentNode.classList.contains('tobeDeleted')) {
+                event.target.parentNode.parentNode.classList.remove('tobeDeleted');
+                event.target.innerText = 'delete';
+                for (let i = 0; i < regDeleteList.length; ++i) {
+                    if (regDeleteList[i] == event.target.name) {
+                        regDeleteList.splice(i, 1);
+                    }
+                }
+            } else {
+                event.target.parentNode.parentNode.classList.add('tobeDeleted');
+                event.target.innerText = 'remove';
+                regDeleteList.push(event.target.name);
+            }
+        }
+
+        function deleteRegisteredStudent() {
+            if (regDeleteList.length == 0) return;
+
+            let classCode = JSON.parse('<%-JSON.stringify(class_code)%>');
+            const url = '/deleteRegisteredStudents/' + classCode;
+            const params = {
+                method: "POST",
+                body: JSON.stringify({ studentIndexes: regDeleteList }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+
+            fetch(url, params).then(() => {
+                location.reload();
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+
+    </script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+
+
+
+<!--
+    <div class="container"> 
+    <div class="jumbotron">
+  <h1 class="display-4">Hello, world!</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  </p>
+</div>
+</div> -->

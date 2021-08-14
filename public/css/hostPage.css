@@ -1,0 +1,120 @@
+
+
+.existingListItem{
+    display: block;
+}
+
+
+.inputListItem{
+    display: block;
+}
+
+.hiddenElement{
+    visibility: hidden;
+}
+
+.activeTest{
+    background-color: grey;
+}
+
+.activeStudent{
+    background-color: greenyellow;
+    color: black !important;
+}
+
+
+
+.tobeDeleted{
+    background-color: #a4508b
+
+
+}
+
+#pendingStudent{
+    padding: 0rem;
+}
+
+#pendingStudentList{
+    display: flex;
+    padding: 1rem;
+    margin: 0rem;  
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    
+}
+
+#testList{
+    display: flex;
+    padding: 1rem;
+    margin: 0rem;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+.testList{
+   list-style-type: none !important;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.quizcontainer{
+    background-color: rgba(0, 0 , 0, 0.5);
+}
+
+
+.pendingStudentDiv{
+    padding: 1rem;
+    font-weight: bold;
+}
+
+.pendingstudentcontainer{
+    margin-top: 0rem;
+    margin-right: -0.9rem;
+    padding: 1rem;
+    background-color: rgba(0, 0 , 0, 0.5);
+    overflow: hidden !important;
+}
+
+
+.formcard{
+    margin-top: 3rem;
+    /* border: 1px solid white;    */
+    border-radius: 10px;
+    background-color: rgba(0, 0 , 0, 0.5) ;
+
+}
+
+.logout{
+    margin-left: 65rem;
+}
+
+.formcard:hover{
+    box-shadow: 7px 3px 30px 1px rgb(124, 124, 124);
+}
+
+.registeredStudentDetailsContainer{
+    padding: 1rem;
+    border-radius: 20px;
+    margin: 0.5rem;
+ 
+}
+
+.form-list-li{
+    list-style-type: none;
+    color: #fff;
+    margin-bottom: 1rem;
+    width: 20rem;
+}
+
+.card-img-top{
+    height: 14rem;
+    width: 17rem;
+    padding-top: 1rem;
+
+}
+

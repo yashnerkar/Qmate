@@ -1,0 +1,476 @@
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/createTest.css" />
+  <link rel="stylesheet" href="/css/common.css">
+  <title>Create Test</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/"><img src="/images/logo2.svg" alt="logo" height="40px" width="80px"></a>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav nav-ul">
+        <li class="nav-item mr-3 align">
+          <a class="nav-link btn" data-toggle="modal" id="set-time-btn" data-target="#setTimeModal">Set Time</a>
+        </li>
+        <li class="nav-item mr-3 align">
+          <button type="button" class="btn btn-primary" id="save-test-btn" onclick="saveTest()">Save Test</button>
+        </li>
+      </ul>
+
+    </div>
+  </nav> 
+
+
+  <div class="modal fade" id="setTimeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Set Time</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form onsubmit="saveTime(event)" id="timeForm">
+            <span>Start time</span>
+           <input type="time" id="startTime">
+            <input type="date" id="startDate">
+<br><br>
+            <span>End time </span>&nbsp
+            <input type="time" id="endTime">
+            <input type="date" id="endDate">
+
+          </form>
+          <p id="showStartTime"></p>
+          <p id="showEndTime"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="timeForm">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    </button>
+    <li></li>
+
+
+    <button type="button" class="btn btn-primary" onclick="saveTest()">Save Test</button>
+  </nav> -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <h3 class="text-center text-warning questionListHeading" style="font-family:system-ui">QUESTION LIST</h3>
+        <ul class="questionList ">
+
+        </ul>
+        <div class="container add-ques-container">
+          <p id="limitWarning" class="hide temp" style="color:white !important; font-family:system-ui"> Cannot add more than 20 questions</p>
+          <span style="font-size: 20px;font-weight:bold; color: white; margin-right: 0.5rem;" id="noOfQuestions"></span>
+          <img  src="/images/icons/add-ques.svg" alt="add" height="50px" width="50px" onclick="window.location.reload()">  
+        </div>
+
+      </div>
+
+      <div class="container question-form-container">
+        <div class="col-md-8 " style="height: 100%">
+          <form id="createTestForm" onsubmit="saveQuestion(event)">
+            <label for="floatingTextarea" style="font-weight:bold;color:white;"><h4 style="font-family:system-ui;">Add Question</h4></label>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" placeholder="Add Question"
+                style="height: 100px;" name="question" id="questionField"></textarea>
+            </div>
+            <!-- <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+              name="question" id="questionField" /> -->
+
+            <ul class="optionList"></ul>
+          </form>
+          <p id="errorText" hidden>please select correct option</p>
+          <img src="/images/icons/add-ques.svg" alt="add" height="50px" width="50px" onclick="addOption()">
+          <button type="submit" form="createTestForm" class="btn btn-success mx-4" style="font-weight: bold; border:1px solid black;">
+            Save
+          </button>
+          <button type="button" onclick="resetData()" class="btn btn-warning" style="font-weight: bold;">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Button trigger modal -->
+
+
+  <!-- Modal -->
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+
+    setStorage();
+
+    function setStorage() {
+      const dataStr = '<%-JSON.stringify(testObj)%>';
+      const testName = '<%-JSON.stringify(testName)%>';
+      const data = JSON.parse(dataStr);
+      const currTest = localStorage.getItem('testName');
+      if (currTest == null || currTest != testName) {
+        localStorage.setItem('test', JSON.stringify(data.test));
+        localStorage.setItem('time', JSON.stringify(data.time));
+        localStorage.setItem('testName', testName)
+      }
+      displayNoOfQuestions();
+      displayQuestionList();
+      displayTime();
+    }
+
+    function displayTime() {
+      let timeObj = JSON.parse(localStorage.getItem('time'));
+      if (timeObj.length == 0) return;
+      startTime = timeObj.startTime;
+      startDate = timeObj.startDate;
+      endTime = timeObj.endTime;
+      endDate = timeObj.endDate;
+      document.getElementById('showStartTime').innerText = "Start Time : " + startTime + " " + startDate;
+      document.getElementById('showEndTime').innerText = "End Time : " + endTime + " " + endDate;
+    }
+
+    var optionId = 1;
+    function addOption() {
+      let options = document.querySelector(".optionList");
+      let newOption = document.createElement("div");
+      newOption.setAttribute("id", "option" + optionId);
+      newOption.classList.add("input-group", "mb-3", "setwidth", "option");
+      newOption.innerHTML =
+        '<div class="input-group-prepend"><div class="input-group-text"><div class="selectOption" onclick="toggleActiveOption()"></div></div></div><input type="text" class="form-control" name="' +
+        optionId +
+        '" aria-label="Text input with checkbox">';
+      options.appendChild(newOption);
+      ++optionId;
+    }
+
+    addOption();
+
+    function toggleActiveOption() {
+      let checkBoxList = document.querySelectorAll(".selectOption");
+      let optionList = document.querySelectorAll(".option");
+      let n = checkBoxList.length;
+      for (let i = 0; i < n; ++i) {
+        checkBoxList[i].onclick = function () {
+          for (let j = 0; j < n; j++) {
+            if (checkBoxList[j].classList.contains('activeCheckBox')) {
+              checkBoxList[j].classList.remove('activeCheckBox');
+            }
+            if (optionList[j].classList.contains('activeOption')) {
+              optionList[j].classList.remove('activeOption');
+            }
+          }
+          checkBoxList[i].classList.add('activeCheckBox');
+          optionList[i].classList.add('activeOption');
+        };
+      }
+    }
+
+    function displayErrorText(){
+      document.getElementById("limitWarning").classList.remove("hide");
+      document.getElementById("limitWarning").classList.add("blinking");
+      setTimeout(() => {
+        document.getElementById("limitWarning").classList.add("hide");
+        document.getElementById("limitWarning").classList.remove("blinking");
+      }, 6000);
+    }
+
+    function saveQuestion(e) {
+      e.preventDefault();
+
+      let test = JSON.parse(localStorage.getItem("test"));
+
+      if(test.length == 20){
+        
+        displayErrorText();
+        return;
+      }
+
+      let question = {
+        id: "",
+        value: document.forms["createTestForm"]["question"].value
+      }
+      let n = document.querySelectorAll(".option").length;
+      let options = [];
+      for (let i = 1; i <= n; ++i) {
+        let optionObj = {
+          id: i,
+          value: document.forms["createTestForm"][i].value,
+        };
+        options.push(optionObj);
+      }
+
+      let correctOption = document.querySelector(".activeOption");
+      if (correctOption == null) {
+        document.getElementById("errorText").removeAttribute("hidden");
+        return;
+      }
+      correctOptionId = correctOption.getElementsByTagName("input")[0].name;
+
+      let questionObj = {
+        question: question,
+        options: options,
+        correctOption: correctOptionId,
+      };
+
+      let activeQuestion = document.querySelector('.activeQuestion');
+
+      if (activeQuestion == null) {
+        test.push(questionObj);
+      } else {
+        let idx = activeQuestion.id;
+        test[idx] = questionObj;
+      }
+      localStorage.setItem("test", JSON.stringify(test));
+
+      location.reload();
+    }
+
+    function displayQuestionList() {
+      let questionArr = JSON.parse(localStorage.getItem("test"));
+      let n = questionArr.length;
+      let qList = document.querySelector('.questionList')
+      for (let i = 0; i < n; ++i) {
+        let newDiv = document.createElement('div');
+        newDiv.innerHTML = '<span class="mr-3">Question : ' + (i + 1) + '</span><button class="btn btn-warning" onclick="deleteQuestion()" style="font-weight:bold; border:0.5px solid black;">Delete</button>'
+        newDiv.classList.add('questions');
+        newDiv.setAttribute('onclick', 'toggleQuestionList()')
+        newDiv.setAttribute('id', i);
+        qList.appendChild(newDiv);
+      }
+      generateForm();
+    }
+
+    function toggleQuestionList() {
+      let queList = document.querySelectorAll('.questions');
+      let n = queList.length;
+      for (let i = 0; i < n; ++i) {
+        queList[i].onclick = function () {
+          for (let j = 0; j < n; j++) {
+            if (queList[j].classList.contains('activeQuestion')) {
+              queList[j].classList.remove('activeQuestion');
+            }
+          }
+          queList[i].classList.add('activeQuestion');
+          generateForm();
+        };
+      }
+    }
+
+    function deleteQuestion() {
+      toggleDelete().then(() => {
+        let idx = document.querySelector('.activeQuestion').id;
+        let obj = JSON.parse(localStorage.getItem('test'));
+        obj.splice(idx, 1);
+        let n = obj.length;
+        localStorage.setItem('test', JSON.stringify(obj));
+        document.getElementById('noOfQuestions').innerText = n;
+        location.reload();
+      }).catch(() => {
+        alert("There was a problem during deletion");
+      })
+    }
+
+    function toggleDelete() {
+      return new Promise((res, rej) => {
+        let queList = document.querySelectorAll('.questions');
+        let n = queList.length;
+        for (let i = 0; i < n; ++i) {
+          queList[i].onclick = function () {
+            for (let j = 0; j < n; j++) {
+              if (queList[j].classList.contains('activeQuestion')) {
+                queList[j].classList.remove('activeQuestion');
+              }
+            }
+            queList[i].classList.add('activeQuestion');
+            res();
+          };
+        }
+      });
+    }
+
+    function generateForm() {
+      let questionArr = JSON.parse(localStorage.getItem("test"));
+      let activeQuestion = document.querySelector('.activeQuestion');
+      if (activeQuestion == null) return;
+      let idx = activeQuestion.id;
+      let obj = questionArr[idx];
+
+      deleteOptions().then(() => {
+        document.getElementById('questionField').value = obj.question.value;
+        let n = obj.options.length;
+        for (let i = 0; i < n; i++) {
+          addOptionUtil(i + 1);
+          let optionValue = obj.options[i].value;
+          document.getElementsByName(i + 1)[0].value = optionValue;
+        }
+        let correctId = obj.correctOption;
+        if (correctId != "") {
+          let optionList = document.getElementsByClassName('option');
+          optionList[correctId - 1].childNodes[0].childNodes[0].childNodes[0].classList.add('activeCheckBox');
+          document.getElementById('option' + correctId).classList.add('activeOption');
+        }
+      })
+    }
+
+    function deleteOptions() {
+      return new Promise((res, rej) => {
+
+        while (true) {
+          let options = document.getElementsByClassName('option');
+          if (options.length == 0) break;
+          else options[0].remove();
+        }
+        res();
+      });
+    }
+
+    function addOptionUtil(id) {
+      let options = document.querySelector(".optionList");
+      let newOption = document.createElement("div");
+      newOption.setAttribute("id", "option" + id);
+      newOption.classList.add("input-group", "mb-3", "setwidth", "option");
+      newOption.innerHTML =
+        '<div class="input-group-prepend"><div class="input-group-text"><div class="selectOption" onclick="toggleActiveOption()"></div></div></div><input type="text" class="form-control" name="' +
+        id +
+        '" aria-label="Text input with checkbox">';
+      options.appendChild(newOption);
+    }
+
+    function saveTest() {
+      let testName = JSON.parse('<%-JSON.stringify(testName)%>');
+      let classCode = JSON.parse('<%-JSON.stringify(class_code)%>');
+
+      const url = 'http://localhost:3000/saveTest/' + classCode + '/' + testName;
+
+      let test = JSON.parse(localStorage.getItem('test'));
+      let time = JSON.parse(localStorage.getItem('time'));
+      if (time.length == 0) {
+        alert("Please select test time.");
+        return;
+      }
+      let n = test.length;
+      for (let i = 0; i < n; ++i) {
+        test[i].question.id = i;
+      }
+
+      const testObj = {
+        test: test,
+        time: time
+      };
+
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(testObj),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }).then((res) => {
+
+        localStorage.clear();
+        const newurl = 'http://localhost:3000/hostPage/' + classCode;
+        location.href = newurl;
+
+      }).catch(() => {
+        console.log("not reached")
+      });
+    }
+
+    function saveTime(e) {
+
+      e.preventDefault();
+      let startTime = document.forms['timeForm']['startTime'].value;
+      let startDate = document.forms['timeForm']['startDate'].value;
+      let endTime = document.forms['timeForm']['endTime'].value;
+      let endDate = document.forms['timeForm']['endDate'].value;
+
+      const timeObj = {
+        startTime: startTime,
+        startDate: startDate,
+        endTime: endTime,
+        endDate: endDate
+      }
+
+      localStorage.setItem('time', JSON.stringify(timeObj));
+      displayTime();
+    }
+
+    function displayNoOfQuestions() {
+      let obj = JSON.parse(localStorage.getItem('test'));
+      if (obj == null) {
+        document.getElementById('noOfQuestions').innerText = '0';
+        return;
+      }
+      document.getElementById('noOfQuestions').innerText = 'Total questions : ' + obj.length + '/20';
+    }
+
+    function resetData() {
+      let questionList = JSON.parse(localStorage.getItem('test'))
+      let question = document.querySelector(".activeQuestion")
+
+      if (question == null) {
+        document.getElementById("createTestForm").reset();
+        deleteOptions();
+        addOption();
+      } else {
+        let idx = question.id;
+        questionList[idx].question.value = "";
+        questionList[idx].correctOption = "";
+        questionList[idx].options = [];
+        questionList[idx].options.push({
+          id: '1',
+          value: ""
+        });
+        localStorage.setItem('test', JSON.stringify(questionList));
+        let activeOption = document.querySelector('.activeOption');
+        if (activeOption == null) return;
+        activeOption.classList.remove('activeOption');
+        let activeCheckBox = document.querySelector('.activeCheckBox');
+        if (activeCheckBox == null) return;
+        activeCheckBox.classList.remove('activeCheckBox');
+        generateForm();
+        return;
+      }
+
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+body{
+    color: rgb(196, 196, 196);
+}
+
+img{
+    border-radius: 50%;
+}
+
+.card{
+    background-color: #393e46;
+}
